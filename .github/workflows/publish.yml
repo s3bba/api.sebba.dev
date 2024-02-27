@@ -11,3 +11,5 @@ jobs:
   package-api:
     uses: vichava/workflows/.github/workflows/rust-package-container.yml@master
     secrets: inherit
+    with:
+      directory: "./api"
