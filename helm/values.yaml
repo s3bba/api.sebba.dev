@@ -1,0 +1,11 @@
+name: "api-sebba-dev"
+
+image:
+  repository: todo:0.0.0
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  containerPort: 3000
+  servicePort: 80
+  domain: api.sebba.dev

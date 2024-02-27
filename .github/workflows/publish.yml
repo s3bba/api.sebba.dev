@@ -1,0 +1,13 @@
+name: Test v2
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  publish-base:
+    uses: vichava/workflows/.github/workflows/rust-publish.yml@master
+    secrets: inherit
+    with:
+      directory: "./base"
+  package-api:
+    uses: vichava/workflows/.github/workflows/rust-package-container.yml@master
+    secrets: inherit
