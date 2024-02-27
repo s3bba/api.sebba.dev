@@ -18,8 +18,8 @@ use serde_json::Error;
 pub fn json<C>(target: &PathBuf) -> Result<C, Error>
     where for<'a> C: Deserialize<'a>
 {
-    let content: String = std::fs::read_to_string(&target).expect(
-        format!("Failed to read {}", &target.display()).as_str()
+    let content: String = std::fs::read_to_string(target).unwrap_or_else(
+        |_| panic!("Failed to read {}", &target.display())
     );
 
     serde_json::from_str(&content)

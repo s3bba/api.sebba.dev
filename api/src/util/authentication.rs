@@ -38,7 +38,7 @@ impl ResponseError for AuthenticationError {
     }
 
     fn error_response(&self) -> HttpResponse<BoxBody> {
-        HttpResponse::Unauthorized().json(&self)
+        HttpResponse::Unauthorized().json(self)
     }
 }
 
@@ -90,8 +90,8 @@ fn credential() -> &'static str {
 
 /// This function is meant to be called at startup to ensure
 /// credential variable is initialed - if it's not program wil+l panic
-pub fn set_credential(credential: &String) {
-    CREDENTIAL.get_or_init(|| credential.clone());
+pub fn set_credential(credential: &str) {
+    CREDENTIAL.get_or_init(|| credential.to_owned());
 }
 
 /// Parses the value of an Authorization header and returns an Authenticated object if the credentials are valid.
@@ -114,7 +114,7 @@ fn parse_auth_header(header_value: &HeaderValue) -> Result<Authenticated, Authen
         Err(AuthenticationError::new("Invalid Authorization header, unable to parse"))
     })?;
 
-    let extracted: Vec<&str> = value.split(" ").collect();
+    let extracted: Vec<&str> = value.split(' ').collect();
 
     // This will cause any mistakenly placed double space in the header value to return this error
     // I won't deal with malformed input, go fix your shit

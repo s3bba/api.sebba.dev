@@ -72,7 +72,7 @@ async fn main() -> std::io::Result<()> {
         // Set up CORS configuration
         let mut cors_config: Cors = Cors::default();
         for origin in &config.allowed_origins {
-            cors_config = cors_config.allowed_origin(&origin);
+            cors_config = cors_config.allowed_origin(origin);
         }
 
         App::new()

@@ -61,7 +61,7 @@ async fn get_blog_posts(db: web::Data<PgDatabase>) -> impl Responder {
             let body: model::blog::BlogPostPreviewResponseBody = model::blog::BlogPostPreviewResponseBody {
                 posts
             };
-            HttpResponse::Ok().into_json(&body)
+            HttpResponse::Ok().into_json(body)
         }
         Err(err) => {
             capture_error!("Failed to fetch posts due to {:?} error", err);
@@ -88,7 +88,7 @@ async fn get_blog_post(
 
     match post_result {
         Ok(post) => {
-            HttpResponse::Ok().into_json(&post)
+            HttpResponse::Ok().into_json(post)
         }
         Err(err) => {
             match err {
@@ -123,7 +123,7 @@ async fn get_blog_post_hashes(
                 posts
             };
 
-            HttpResponse::Ok().into_json(&model)
+            HttpResponse::Ok().into_json(model)
         }
         Err(err) => {
             capture_error!("Failed to fetch post hashes due to {:?} error", err);
