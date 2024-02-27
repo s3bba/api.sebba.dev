@@ -1,0 +1,49 @@
+//@host = https://api.sebba.dev
+@host = http://127.0.0.1:3000
+@auth = Bearer test-token
+@test_slug = sandbox
+
+// region public api
+### Get blog posts
+GET {{host}}/blog/v1/posts
+
+### Get blog post by slug
+GET {{host}}/blog/v1/posts/{{test_slug}}
+// endregion public api
+
+// region admin api
+### Create blog post
+POST {{host}}/blog/v1/admin/posts
+Content-Type: application/json
+Authorization: {{auth}}
+
+{
+  "slug": "test-slug",
+  "title": "Test title",
+  "description": ":/",
+  "tags": ["one", "two"],
+  "content": "Hello world!",
+  "hash": "hash"
+}
+
+### Get blog post hashes
+GET {{host}}/blog/v1/admin/posts/hashes
+Authorization: {{auth}}
+
+### Update blog post
+PATCH {{host}}/blog/v1/admin/posts/{{test_slug}}
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+  "title": "Updated title",
+  "description": "Updated description",
+  "tags": ["three", "four"],
+  "content": "Updated content",
+  "hash": "updated-hash"
+}
+
+### Delete blog post
+DELETE {{host}}/blog/v1/admin/posts/{{test_slug}}
+Authorization: {{auth}}
+// endregion admin api
